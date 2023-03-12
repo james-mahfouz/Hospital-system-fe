@@ -42,8 +42,9 @@ hospital_pages.load_register = async()=>{
         data.append('email', email);
         data.append('password', password);
         const response = await hospital_pages.postAPI(register_user, data)
-        if(response.data.status){
-            window.location.href = "index.html";
+        console.log(response.data.status)
+        if(response.data){
+            window.location.href = "index.html"
         }
     }
 }
