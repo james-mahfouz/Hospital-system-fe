@@ -69,18 +69,20 @@ hospital_pages.load_login = async()=>{
 }
 
 hospital_pages.load_index = async()=>{
-    const login_user = hospital_pages.base_url + "assign.php";
-    const btn = document.getElementById("register_btn");
+    const assign_patient = hospital_pages.base_url + "assign_patient.php";
+    const assign = document.getElementById("assign");
 
-    btn.addEventListener("click", login)
+    assign.addEventListener("click", login)
     async function login(){
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("pass").value;
+        const patient = document.getElementById("name").value;
+        const hospital = document.getElementById("hosp").value;
+        const jwt = localStorage.getItem("jwt");
         const data = new FormData();
-        data.append('email', email);
-        data.append('password', password);
-        const response = await hospital_pages.postAPI(login_user, data)
-        console.log(response.data.jwt)
+        data.append('patient_id', patient);
+        data.append('hospital_id', hospital);
+        data.append('jwt', jwt);
+        const response = await hospital_pages.postAPI(assign_patient, data)
+        console.log(response.data)
         response
         if(response.data.status==true){
             localStorage.setItem('jwt', response.data.jwt);
